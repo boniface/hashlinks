@@ -7,19 +7,17 @@ import (
 )
 
 func TestGetZones(t *testing.T) {
-	zone:=getAllZones()
+	zone := GetAllZones()
 	fmt.Println(" The Zones are ", zone)
 }
 
 func TestGetZone(t *testing.T) {
-	zone:=getZone("SA")
+	zone := GetZone("SA")
 	fmt.Println(" The Zones is ", zone)
 }
 
-
 func TestAZone(t *testing.T) {
-	zone:= domain.Zone{"UK","United Kingdom","ACTIVE","NO"}
-	result:=addZone(zone)
+	zone := domain.Zone{"UK", "United Kingdom", "ACTIVE", "NO"}
+	result := AddZone(zone)
 	fmt.Println(" The Zones is ", result)
 }
-

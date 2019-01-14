@@ -14,10 +14,8 @@ var zoneMetadata = table.Metadata{
 	PartKey: []string{"code"},
 }
 
-var zoneTable = table.New(zoneMetadata)
-
-
-func addZone(zone domain.Zone) domain.Zone {
+func AddZone(zone domain.Zone) domain.Zone {
+	zoneTable := table.New(zoneMetadata)
 	session := connect()
 	defer session.Close()
 	stmt, names := zoneTable.Insert()
@@ -28,7 +26,7 @@ func addZone(zone domain.Zone) domain.Zone {
 	return zone
 }
 
-func getAllZones() domain.Zones {
+func GetAllZones() domain.Zones {
 	session := connect()
 	defer session.Close()
 	var zones []domain.Zone
@@ -39,14 +37,14 @@ func getAllZones() domain.Zones {
 	return zones
 }
 
-func getZone(code string) domain.Zone {
+func GetZone(code string) domain.Zone {
 	session := connect()
 	defer session.Close()
 	var zones []domain.Zone
-	var zone   domain.Zone
+	var zone domain.Zone
 
 	statement, _ := qb.Select("zones").Where(qb.Eq("code")).ToCql()
-	if err := gocqlx.Select(&zones, session.Query(statement,code)); err != nil {
+	if err := gocqlx.Select(&zones, session.Query(statement, code)); err != nil {
 		log.Fatal(err)
 	}
 	for _, zoneOne := range zones {
@@ -55,8 +53,6 @@ func getZone(code string) domain.Zone {
 	return zone
 }
 
-func deleteZone()  {
+func DeleteZone() {
 
 }
-
-

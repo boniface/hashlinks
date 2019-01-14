@@ -7,24 +7,22 @@ import (
 )
 
 func TestGetFeed(t *testing.T) {
-	feed:=getSiteFeeds("ZM","LT")
+	feed := GetSiteFeeds("ZM", "LT")
 	fmt.Println(" The FEEDS is  ", feed)
 }
 
 func TestGetZoneFeed(t *testing.T) {
-	feed:=getZoneFeeds("ZM")
+	feed := GetZoneFeeds("ZM")
 	fmt.Println(" The FEEDS is  ", feed)
 }
 
 func TestGetFeedById(t *testing.T) {
-	feed:=getFeedById("ZM","LT","1")
+	feed := GetFeedById("ZM", "LT", "1")
 	fmt.Println(" The FEED is  ", feed)
 }
 
 func TestAddFeed(t *testing.T) {
-	feed:=domain.Feed{"ZA","NT","1","None","http://feeds.news24.com/articles/news24/TopStories/rss","RSS"}
-	results:=addFeed(feed)
+	feed := domain.Feed{"ZA", "NT", "1", "None", "http://feeds.news24.com/articles/news24/TopStories/rss", "RSS"}
+	results := AddFeed(feed)
 	fmt.Println(" The FEEDS is  ", results)
 }
-
-
