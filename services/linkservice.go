@@ -1,11 +1,9 @@
 package services
 
 import (
-	"fmt"
 	"github.com/mmcdole/gofeed"
 	"hashlinks/domain"
 	"hashlinks/repository"
-	"time"
 )
 
 func GentZoneLinks(zone string) domain.Links {
@@ -18,24 +16,23 @@ func GentZoneLinks(zone string) domain.Links {
 
 }
 
-func getLinks(feedLink string) domain.Links {
+func getLinks(feedLink domain.Feed) domain.Links {
 	var links domain.Links
 	fp := gofeed.NewParser()
-	feed, _ := fp.ParseURL(feedLink)
-
+	feed, _ := fp.ParseURL(feedLink.Feedlink)
 	for _, feed := range feed.Items {
-
 		link := domain.Link{
-			Zone:          feedLink,
+			Zone:          feedLink.Zone,
 			Datepublished: *feed.PublishedParsed,
 			Linkhash:      "",
 			Linkurl:       feed.Link,
-			Linksite:      feed.Title,
+			Linksite:      feedLink.Feedlink,
 			Linktitle:     feed.Title,
-			Linktype:      feed.Content,
-			Linksitecode:  "",
+			Linktype:      feedLink.Feedtype,
+			Linksitecode:  feedLink.Sitecode,
 		}
-		append(links)
+		links = append(links, link)
 
 	}
+	return links
 }
