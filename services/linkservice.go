@@ -1,19 +1,20 @@
 package services
 
 import (
+	"crypto/md5"
+	"fmt"
 	"github.com/mmcdole/gofeed"
 	"hashlinks/domain"
 	"hashlinks/repository"
 )
 
-func GentZoneLinks(zone string) domain.Links {
-
+func GetZoneLinks(zone string) domain.Links {
+	var links domain.Links
 	feeds := repository.GetZoneFeeds(zone)
-
 	for _, feed := range feeds {
-
+		links = append(links, getLinks(feed)...)
 	}
-
+	return links
 }
 
 func getLinks(feedLink domain.Feed) domain.Links {
@@ -24,7 +25,7 @@ func getLinks(feedLink domain.Feed) domain.Links {
 		link := domain.Link{
 			Zone:          feedLink.Zone,
 			Datepublished: *feed.PublishedParsed,
-			Linkhash:      "",
+			Linkhash:      hashLink(feedLink.Feedlink),
 			Linkurl:       feed.Link,
 			Linksite:      feedLink.Feedlink,
 			Linktitle:     feed.Title,
@@ -32,7 +33,11 @@ func getLinks(feedLink domain.Feed) domain.Links {
 			Linksitecode:  feedLink.Sitecode,
 		}
 		links = append(links, link)
-
 	}
 	return links
+}
+
+func hashLink(url string) string {
+	message := []byte(url)
+	return fmt.Sprintf("a %s", md5.Sum(message))
 }
