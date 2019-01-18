@@ -6,25 +6,30 @@ import (
 	"github.com/mmcdole/gofeed"
 	"hashlinks/domain"
 	"hashlinks/repository"
+	"time"
 )
 
 func GetZoneLinks(zone string) domain.Links {
 	var links domain.Links
 	feeds := repository.GetZoneFeeds(zone)
 	for _, feed := range feeds {
-		links = append(links, getLinks(feed)...)
+		sets := getLinks(feed)
+		//links = append(links, sets...)
+		fmt.Println(" the Size is ", len(sets))
 	}
 	return links
 }
 
 func getLinks(feedLink domain.Feed) domain.Links {
+	fmt.Println(" has this been HIT")
 	var links domain.Links
 	fp := gofeed.NewParser()
 	feed, _ := fp.ParseURL(feedLink.Feedlink)
+	fmt.Println(" Got the Feed")
 	for _, feed := range feed.Items {
 		link := domain.Link{
 			Zone:          feedLink.Zone,
-			Datepublished: *feed.PublishedParsed,
+			Datepublished: time.Now(),
 			Linkhash:      hashLink(feedLink.Feedlink),
 			Linkurl:       feed.Link,
 			Linksite:      feedLink.Feedlink,
@@ -32,7 +37,9 @@ func getLinks(feedLink domain.Feed) domain.Links {
 			Linktype:      feedLink.Feedtype,
 			Linksitecode:  feedLink.Sitecode,
 		}
-		links = append(links, link)
+
+		fmt.Println(" Got the link", link.Linksite)
+
 	}
 	return links
 }
