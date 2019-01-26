@@ -8,7 +8,11 @@ import (
 
 func TestGetZones(t *testing.T) {
 	links := GetZoneLinks("ZM")
-	fmt.Println(" The Zones are ", links)
+	//for i, link:=range links{
+	//	fmt.Println(i, "Site:  ", link.Linksitecode, "Link:  ", link.Linkurl)
+	//}
+
+	fmt.Println(" The Link Size is ", len(links))
 }
 
 func TestGeLinksFromFeeds(t *testing.T) {
@@ -26,10 +30,10 @@ func TestGeLinksFromFeeds(t *testing.T) {
 	feed10 := domain.Feed{"ZA", "NT", "1", "None", "https://www.zambiawatchdog.com/feed/", "RSS"}
 	feed11 := domain.Feed{"ZA", "NT", "1", "None", "http://feeds.news24.com/articles/news24/TopStories/rss", "RSS"}
 	feeds := []domain.Feed{feed, feed1, feed2, feed3, feed4, feed5, feed6, feed7, feed8, feed9, feed10, feed11}
-	for _, fed := range feeds {
-		links = append(links, getLinks(fed)...)
-	}
+	//for _, fed := range feeds {
+	//	links = append(links)
+	//}
 
-	fmt.Println(" The Size of the Array is ", len(links))
+	fmt.Println(" The Size of the Array is ", len(feeds), links)
 
 }
