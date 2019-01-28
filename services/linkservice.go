@@ -6,7 +6,6 @@ import (
 	"github.com/mmcdole/gofeed"
 	"hashlinks/domain"
 	"hashlinks/repository"
-	"time"
 )
 
 func recoverName() {
@@ -21,20 +20,6 @@ func GetZoneLinks(zone string) domain.Links {
 	feeds := repository.GetZoneFeeds(zone)
 	for _, feed := range feeds {
 		go getLinks(feed, linksChannel)
-
-	}
-
-	timeout := time.After(10 * time.Second)
-
-	for siteLinks := range linksChannel {
-		select {
-		case links := <-linksChannel:
-			fmt.Println(" Links are ", len(siteLinks))
-			links = append(links, siteLinks...)
-		case <-timeout:
-			fmt.Println("my patience ran out")
-			return links
-		}
 
 	}
 
