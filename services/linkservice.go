@@ -49,7 +49,7 @@ func getLinks(feedLink domain.Feed, linksChannel chan domain.Links) {
 		}
 		links = append(links, link)
 	}
-	linksChannel <- links
+
 }
 
 func hashLink(url string) string {
