@@ -1,7 +1,6 @@
 package services
 
 import (
-	"fmt"
 	"hashlinks/domain"
 	"hashlinks/repository"
 	"sync"
@@ -25,8 +24,8 @@ func ProcessLinks() {
 func saveLinks(links domain.Links, wg *sync.WaitGroup) {
 	defer wg.Done()
 	for _, link := range links {
-		//repository.AddLink(link)
-		fmt.Println(" the Links Saved ", link.Linkurl)
+		repository.AddLink(link)
+
 	}
 
 }
