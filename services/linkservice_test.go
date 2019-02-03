@@ -8,9 +8,9 @@ import (
 
 func TestGetZones(t *testing.T) {
 	links := GetZoneLinks("ZM")
-	//for i, link:=range links{
-	//	fmt.Println(i, "Site:  ", link.Linksitecode, "Link:  ", link.Linkurl)
-	//}
+	for i, link := range links {
+		fmt.Println(i, " Site:  ", link.Linksitecode, " Link:  ", link.Linkhash)
+	}
 
 	fmt.Println(" The Link Size is ", len(links))
 }

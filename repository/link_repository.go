@@ -16,6 +16,12 @@ var linkMetadata = table.Metadata{
 	SortKey: []string{"datepublished", "linkhash"},
 }
 
+func AddLink(link domain.Link) domain.Link {
+	addLink(link)
+	return link
+
+}
+
 func addLink(link domain.Link) domain.Link {
 	linkTable := table.New(linkMetadata)
 	session := connect()
